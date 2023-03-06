@@ -1,4 +1,4 @@
-package RestApiPaymentService.model;
+package payservice.model;
 
 import lombok.*;
 import javax.persistence.*;

@@ -1,6 +1,7 @@
-package RestApiPaymentService.model;
+package procservice.model;
 
 import lombok.ToString;
+
 import java.util.UUID;
 @ToString
 public class PayUpdateDTO {

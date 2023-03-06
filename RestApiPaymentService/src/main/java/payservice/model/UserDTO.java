@@ -1,4 +1,4 @@
-package RestApiPaymentService.model;
+package payservice.model;
 
 public class UserDTO {
     public String login;

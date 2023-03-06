@@ -13,6 +13,7 @@
 
     <modules>
         <module>RestApiPaymentService</module>
+        <module>PaymentProcessingService</module>
     </modules>
 
     <properties>

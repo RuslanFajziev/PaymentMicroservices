@@ -1,13 +1,10 @@
-package RestApiPaymentService.model;
+package procservice.model;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "Payment_DAO")
@@ -20,7 +17,7 @@ public class PaymentDAO {
     private String nameService;
     private int amount;
     private String metadate;
-    @GeneratedValue
+
     @Column(name = "correlation_id")
     private UUID correlationId;
     @Column(name = "date_payment")
@@ -33,15 +30,23 @@ public class PaymentDAO {
     @Transient
     private Boolean testPay;
 
-    public static PaymentDAO of(String nameService, int amount, List<MetadataDTO> metadate, String userCreater) {
+    public static PaymentDAO of(String nameService, int amount, String metadate,
+                                String statusPayment, String userCreater, Boolean testPay) {
         PaymentDAO dao = new PaymentDAO();
         dao.nameService = nameService;
         dao.amount = amount;
-
-        Gson gson = new GsonBuilder().create();
-        dao.metadate = gson.toJson(metadate);
+        dao.metadate = metadate;
+        dao.correlationId = UUID.randomUUID();
+        dao.datePayment = new Date();
+        dao.statusPayment = statusPayment;
         dao.userCreater = userCreater;
+        dao.testPay = testPay;
 
         return dao;
+    }
+
+    public static PaymentDAO of(String nameService, int amount, String metadate,
+                                String statusPayment, String userCreater) {
+        return of(nameService, amount, metadate, statusPayment, userCreater, false);
     }
 }
