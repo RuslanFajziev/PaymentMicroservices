@@ -26,7 +26,7 @@ public class PaymentDAO {
     @Column(name = "status_payment")
     private String statusPayment;
     @Column(name = "user_creator")
-    private String userCreater;
+    private String userCreator;
     @Transient
     private Boolean testPay;
 
@@ -39,7 +39,7 @@ public class PaymentDAO {
         dao.correlationId = UUID.randomUUID();
         dao.datePayment = new Date();
         dao.statusPayment = statusPayment;
-        dao.userCreater = userCreater;
+        dao.userCreator = userCreater;
         dao.testPay = testPay;
 
         return dao;

@@ -24,8 +24,6 @@ import static payservice.filter.JWTAuthenticationFilter.TOKENPREFIX;
 import static payservice.filter.JWTAuthenticationFilter.SECRET;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-    private static final Logger LOG = LoggerFactory.getLogger(JWTAuthorizationFilter.class.getSimpleName());
-
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
     }

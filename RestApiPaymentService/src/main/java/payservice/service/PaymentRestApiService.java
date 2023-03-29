@@ -2,6 +2,7 @@ package payservice.service;
 
 import lombok.AllArgsConstructor;
 import payservice.model.PaymentDAO;
+import payservice.repository.JWTRestApiRepos;
 import payservice.repository.PaymentRestApiRepos;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Service
 public class PaymentRestApiService {
     private final PaymentRestApiRepos repos;
+    private final JWTRestApiRepos reposUser;
     private final KafkaProducerPaymentRestApiService serviceKafkaProducer;
 
     public List<PaymentDAO> findAll() {
@@ -51,6 +53,10 @@ public class PaymentRestApiService {
     }
 
     public PaymentDAO save(PaymentDAO paymentDAO) {
+        var userDAOOptional = reposUser.findByLogin(paymentDAO.getUserCreator());
+        var userCreator = userDAOOptional.isPresent() ? userDAOOptional.get().getFioUser() : "undefined";
+        paymentDAO.setUserCreator(userCreator);
+
         var payDAO = repos.save(paymentDAO);
         serviceKafkaProducer.send(payDAO.getId(), payDAO);
 

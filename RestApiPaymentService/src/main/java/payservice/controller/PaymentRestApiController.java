@@ -1,8 +1,8 @@
 package payservice.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import payservice.model.PaymentDAO;
 import payservice.model.PaymentDTO;
 import payservice.service.PaymentRestApiService;
@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@Slf4j
 @RequestMapping("/api/v1/payment")
 public class PaymentRestApiController {
     private final PaymentRestApiService service;
@@ -45,7 +44,6 @@ public class PaymentRestApiController {
         var entity = ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(body);
-        log.info("\nresponse: \n{}", body);
 
         return entity;
     }
@@ -65,12 +63,9 @@ public class PaymentRestApiController {
             body = gson.toJson(value);
         }
 
-        var entity = ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(body);
-        log.info("\nresponse: \n{}", body);
-
-        return entity;
     }
 
     @GetMapping("/getbyfilter")
@@ -91,22 +86,18 @@ public class PaymentRestApiController {
             body = gson.toJson(value);
         }
 
-        var entity = ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(body);
-        log.info("\nresponse: \n{}", body);
-
-        return entity;
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('user_full')")
-    public PaymentDAO add(@RequestBody PaymentDTO paymentDTO) {
-        PaymentDAO paymentDAO = PaymentDAO.of(paymentDTO.nameService, paymentDTO.amount,
-                gson.toJson(paymentDTO.metadate), "created", "Vasia");
-        var pay = service.save(paymentDAO);
-        log.info("\nresponse: \n{}", pay);
+    public PaymentDAO add(@RequestBody PaymentDTO paymentDTO, Authentication auth) {
+        var login = auth.getPrincipal().toString();
 
-        return pay;
+        PaymentDAO paymentDAO = PaymentDAO.of(paymentDTO.nameService, paymentDTO.amount,
+                gson.toJson(paymentDTO.metadate), "created", login);
+        return service.save(paymentDAO);
     }
 }
