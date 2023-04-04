@@ -1,6 +1,7 @@
 package payservice.model;
 
 import lombok.*;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,9 +13,19 @@ public class UserDAO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     public String login;
-    @Column (name = "password_hash")
+    @Column(name = "password_hash")
     public String passwordHash;
     public String role;
-    @Column (name = "fio_user")
+    @Column(name = "fio_user")
     public String fioUser;
+
+    public static UserDAO of(String login, String passwordHash,
+                             String role, String fioUser) {
+        var usr = new UserDAO();
+        usr.setLogin(login);
+        usr.setPasswordHash(passwordHash);
+        usr.setRole(role);
+        usr.setFioUser(fioUser);
+        return usr;
+    }
 }

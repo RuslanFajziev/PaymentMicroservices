@@ -3,6 +3,9 @@ package payservice.controller;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +13,8 @@ import payservice.model.UserDAO;
 import payservice.service.JWTRestApiService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -26,9 +31,14 @@ public class JWTRestApiController {
 
     @GetMapping("user")
     @PreAuthorize("isAuthenticated()")
-    public String user(Authentication authentication) {
-        var login = authentication.getPrincipal().toString();
-        var role = authentication.getAuthorities().toString();
-        return "Login: " + login + ",\n" + "Role: " + role;
+    public ResponseEntity<String> user(Authentication authentication) {
+        Map<String, String> value = new HashMap<>();
+        value.put("login", authentication.getPrincipal().toString());
+        value.put("role", authentication.getAuthorities().toString());
+        String body = gson.toJson(value);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(body);
     }
 }

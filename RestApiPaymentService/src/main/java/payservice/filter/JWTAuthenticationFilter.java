@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import payservice.model.AuthResponseJWT;
 import payservice.model.UserDTO;
 
 import javax.servlet.FilterChain;
@@ -70,9 +71,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         res.addHeader(HEADERSTRING, TOKENPREFIX + token);
 
-        Map<String, String> body = new HashMap<>();
-        body.put("login", userName);
-        body.put("access_token", token);
+        AuthResponseJWT body = new AuthResponseJWT();
+        body.setLogin(userName);
+        body.setAccessToken(token);
 
         res.getWriter().write(gson.toJson(body));
         res.setContentType("application/json");
