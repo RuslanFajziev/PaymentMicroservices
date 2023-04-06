@@ -21,20 +21,24 @@ class RestApiPaymentServiceApplicationTests {
     private String jwtUserRead;
     private String jwtUserBad;
 
+    private String jwtSuperAdmin;
+
     private PaymentDTO paymentDTO1;
     private PaymentDTO paymentDTO2;
     private PaymentDTO paymentDTO3;
 
     public RestApiPaymentServiceApplicationTests() {
         restTemplate = new TestRestTemplate();
+
+        jwtSuperAdmin = getJWT("admin", "admin");
         userFull = UserDAO.of("vadim", "p@$$word", "user_full", "Tsoy Vadim Batkovich");
         userRead = UserDAO.of("tima", "12345678", "user_read", "Chudov Tima C#ovich");
         userBad = UserDAO.of("artem", "123456", "user_zero", "Atoyn Artem Batkovich");
         lstUser = new ArrayList<>(Arrays.asList(userFull, userRead, userBad));
         addUser(lstUser);
-        jwtUserFull = getJWT(userFull);
-        jwtUserRead = getJWT(userRead);
-        jwtUserBad = getJWT(userBad);
+        jwtUserFull = getJWT(userFull.getLogin(), userFull.getPasswordHash());
+        jwtUserRead = getJWT(userRead.getLogin(), userRead.getPasswordHash());
+        jwtUserBad = getJWT(userBad.getLogin(), userBad.getPasswordHash());
 
         List<MetadataDTO> lstMetadata = new ArrayList<>(Arrays.asList(MetadataDTO.of(9999, "Moscow"),
                 MetadataDTO.of(4555, "Piter")));
@@ -254,15 +258,19 @@ class RestApiPaymentServiceApplicationTests {
     }
 
     private void addUser(List<UserDAO> lst) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + jwtSuperAdmin);
         for (var usr : lst) {
-            restTemplate.postForObject(getURI("adduser"), usr, UserDAO.class);
+            restTemplate.postForEntity(
+                    getURI("adduser"), new HttpEntity<>(usr, new HttpHeaders(headers)),
+                    String.class);
         }
     }
 
-    private String getJWT(UserDAO userDAO) {
+    private String getJWT(String login, String password) {
         var authRequest = new UserDTO();
-        authRequest.setLogin(userDAO.login);
-        authRequest.setPassword(userDAO.getPasswordHash());
+        authRequest.setLogin(login);
+        authRequest.setPassword(password);
         var authResponseJWT = restTemplate.postForObject(getURI("login"),
                 authRequest, AuthResponseJWT.class);
         return authResponseJWT.getAccessToken();

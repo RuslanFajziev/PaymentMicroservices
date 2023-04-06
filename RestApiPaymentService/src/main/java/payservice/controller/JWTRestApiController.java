@@ -25,8 +25,13 @@ public class JWTRestApiController {
     private final Gson gson;
 
     @PostMapping("adduser")
-    public UserDAO getJwt(@RequestBody UserDAO userDAO, HttpServletRequest request) {
-        return service.addUser(userDAO);
+    @PreAuthorize("hasAuthority('super_admin')")
+    public ResponseEntity<String> getJwt(@RequestBody UserDAO userDAO, HttpServletRequest request) {
+        String rsl = service.addUser(userDAO);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("result: " + rsl);
     }
 
     @GetMapping("user")

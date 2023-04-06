@@ -16,17 +16,17 @@ public class JWTRestApiService {
     private final JWTRestApiRepos repos;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserDAO addUser(UserDAO userDAO) {
+    public String addUser(UserDAO userDAO) {
         var userDAOOptional = findByLogin(userDAO.getLogin());
-        UserDAO rsl;
+        String rsl;
 
         if (userDAOOptional.isEmpty()) {
             userDAO.setPasswordHash(bCryptPasswordEncoder.encode(userDAO.passwordHash));
-            rsl = repos.save(userDAO);
+            repos.save(userDAO);
+            rsl = "user successfully added";
         } else {
-            rsl = userDAOOptional.get();
+            rsl = "there is already such a user";
         }
-
         return rsl;
     }
 

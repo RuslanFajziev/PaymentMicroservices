@@ -2,7 +2,6 @@ package payservice;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,8 +16,6 @@ import org.springframework.context.annotation.Bean;
 import payservice.filter.JWTAuthenticationFilter;
 import payservice.filter.JWTAuthorizationFilter;
 import payservice.service.UserDetailsServiceImpl;
-
-import static payservice.filter.JWTAuthenticationFilter.ADDUSERURL;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -45,7 +42,7 @@ public class  WebSecurity extends WebSecurityConfigurerAdapter {
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/v1/login");
 
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, ADDUSERURL).permitAll()
+//                .antMatchers(HttpMethod.POST, ADDUSERURL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(jwtAuthenticationFilter)
