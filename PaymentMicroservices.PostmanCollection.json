@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "3f22773e-30ae-4899-926c-238e0a0113e8",
+		"name": "PaymentMicroservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16258514"
+	},
+	"item": [
+		{
+			"name": "Add user for Rest Api",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\" : \"artem3\",\r\n    \"passwordHash\" : \"123456\",\r\n    \"role\" : \"user_zero3\",\r\n    \"fioUser\" : \"Atoyn3 Artem Batkovich3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/adduser",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"adduser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Date from JWT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4MTMyNzY4N30.zbBHyfy9n4X6P_1MbRB8hsmsn9tDCedXQGH6bTB3mqc96ZBIcEH5HvDujYgmS5mlG6E7CH0FieCvdxXojSE_Cw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v1/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Healthcheck",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGltYSIsImV4cCI6MTY3MTc0MjEwNSwiaXNzIjoiTXlBdXRoU2VydmVyIiwiYXVkIjoiTXlBdXRoQ2xpZW50In0.yCmyyxpsdxqTGra5-AO-Srt3dXv0CM-1PISEc6o5Vog",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nameServce\" : \"delivery\",\r\n    \"sum\" : 500,\r\n    \"data\" : [\r\n        {\r\n        \"rrn\": 555,\r\n        \"sity\": \"Moscow\"\r\n    },\r\n    {\r\n        \"rrn\": 777,\r\n        \"sity\": \"Piter\"\r\n    }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/healthcheck",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"healthcheck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list payments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGltYSIsImV4cCI6MTY3MTc0MjEwNSwiaXNzIjoiTXlBdXRoU2VydmVyIiwiYXVkIjoiTXlBdXRoQ2xpZW50In0.yCmyyxpsdxqTGra5-AO-Srt3dXv0CM-1PISEc6o5Vog",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v1/payment/get",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payment",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get payment for Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmFkaW0yIiwiZXhwIjoxNjcxNzQyNTYzLCJpc3MiOiJNeUF1dGhTZXJ2ZXIiLCJhdWQiOiJNeUF1dGhDbGllbnQifQ.l5ruG1uCYT3EMb-6RUwEqOX4dhveN62_zP2chpGaOB0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v1/payment/get/23",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payment",
+						"get",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list payments for Filter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmFkaW0yIiwiZXhwIjoxNjcxNzQyNTYzLCJpc3MiOiJNeUF1dGhTZXJ2ZXIiLCJhdWQiOiJNeUF1dGhDbGllbnQifQ.l5ruG1uCYT3EMb-6RUwEqOX4dhveN62_zP2chpGaOB0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v1/payment/getbyfilter?nameService=flystep&amount=5555&statusPayment=complete",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payment",
+						"getbyfilter"
+					],
+					"query": [
+						{
+							"key": "nameService",
+							"value": "flystep"
+						},
+						{
+							"key": "amount",
+							"value": "5555"
+						},
+						{
+							"key": "statusPayment",
+							"value": "complete"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add payment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmFkaW0yIiwiZXhwIjoxNjczOTEyMTQwLCJpc3MiOiJNeUF1dGhTZXJ2ZXIiLCJhdWQiOiJNeUF1dGhDbGllbnQifQ.eRaY5acakwMRxlPzP2LERMnu0iaDn_ml1XFLKnDMKmQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nameService\" : \"flystep\",\r\n    \"amount\" : 5555,\r\n    \"metadate\" : [\r\n        {\r\n        \"coefficient\": 9999,\r\n        \"sity\": \"Moscow\"\r\n    },\r\n    {\r\n        \"coefficient\": 4555,\r\n        \"sity\": \"Piter\"\r\n    }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/payment/add",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payment",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
