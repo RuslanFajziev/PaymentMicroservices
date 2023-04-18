@@ -13,6 +13,7 @@ import payservice.model.UserDAO;
 import payservice.service.JWTRestApiService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class JWTRestApiController {
 
     @PostMapping("adduser")
     @PreAuthorize("hasAuthority('super_admin')")
-    public ResponseEntity<String> getJwt(@RequestBody UserDAO userDAO, HttpServletRequest request) {
+    public ResponseEntity<String> getJwt(@Valid @RequestBody UserDAO userDAO) {
         String rsl = service.addUser(userDAO);
 
         return ResponseEntity.status(HttpStatus.OK)

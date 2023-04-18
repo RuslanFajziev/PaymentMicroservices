@@ -17,6 +17,10 @@ public class JWTRestApiService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public String addUser(UserDAO userDAO) {
+        if (userDAO.getPasswordHash().length() < 8) {
+            throw new IllegalArgumentException("Password is too short < 8");
+        }
+
         var userDAOOptional = findByLogin(userDAO.getLogin());
         String rsl;
 

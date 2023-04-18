@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -90,7 +91,7 @@ public class PaymentRestApiController {
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('user_full')")
-    public PaymentDAO add(@RequestBody PaymentDTO paymentDTO, Authentication auth) {
+    public PaymentDAO add(@Valid @RequestBody PaymentDTO paymentDTO, Authentication auth) {
         var login = auth.getPrincipal().toString();
 
         PaymentDAO paymentDAO = PaymentDAO.of(paymentDTO.nameService, paymentDTO.amount,
