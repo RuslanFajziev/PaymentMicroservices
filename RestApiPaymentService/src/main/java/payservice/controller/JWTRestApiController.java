@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import payservice.model.UserDAO;
 import payservice.service.JWTRestApiService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;

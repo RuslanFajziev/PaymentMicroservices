@@ -33,7 +33,7 @@ class RestApiPaymentServiceApplicationTests {
         jwtSuperAdmin = getJWT("admin", "admin");
         userFull = UserDAO.of("vadim", "p@$$word", "user_full", "Tsoy Vadim Batkovich");
         userRead = UserDAO.of("tima", "12345678", "user_read", "Chudov Tima C#ovich");
-        userBad = UserDAO.of("artem", "123456", "user_zero", "Atoyn Artem Batkovich");
+        userBad = UserDAO.of("artem", "12345678", "user_zero", "Atoyn Artem Batkovich");
         lstUser = new ArrayList<>(Arrays.asList(userFull, userRead, userBad));
         addUser(lstUser);
         jwtUserFull = getJWT(userFull.getLogin(), userFull.getPasswordHash());
@@ -157,7 +157,7 @@ class RestApiPaymentServiceApplicationTests {
         headers.add("Authorization", "Bearer " + jwtUserFull);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                getURI("payment/getbyfilter?nameService=pay1&amount=5555&statusPayment=created"),
+                getURI("payment/getbyfilter?nameService=pay1&amount=5555&statusPayment=complete"),
                 HttpMethod.GET.GET, new HttpEntity<>(headers), String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertFalse(response.getBody().contains("payments not found"));
@@ -169,7 +169,7 @@ class RestApiPaymentServiceApplicationTests {
         headers.add("Authorization", "Bearer " + jwtUserRead);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                getURI("payment/getbyfilter?nameService=pay1&amount=5555&statusPayment=created"),
+                getURI("payment/getbyfilter?nameService=pay1&amount=5555&statusPayment=complete"),
                 HttpMethod.GET.GET, new HttpEntity<>(headers), String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertFalse(response.getBody().contains("payments not found"));
