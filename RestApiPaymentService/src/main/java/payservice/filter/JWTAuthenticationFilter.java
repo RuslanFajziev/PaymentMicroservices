@@ -25,7 +25,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public static long EXPIRATIONTIME;
     public static final String TOKENPREFIX = "Bearer ";
     public static final String HEADERSTRING = "Authorization";
-    public static final String ADDUSERURL = "/api/v1/adduser";
+    public static final String SWAGGERUI = "/swagger-ui/*";
+    public static final String APIDOCS = "/v3/api-docs";
+    public static final String APIDOCS2 = "/v3/api-docs/*";
     private final AuthenticationManager auth;
     private final Gson gson;
 

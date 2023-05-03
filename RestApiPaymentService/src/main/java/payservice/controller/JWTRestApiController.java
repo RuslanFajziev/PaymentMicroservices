@@ -1,6 +1,9 @@
 package payservice.controller;
 
 import com.google.gson.Gson;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,12 +23,15 @@ import java.util.Map;
 @Slf4j
 @AllArgsConstructor
 @RequestMapping("/api/v1/")
+@Tag(name = "Система управления пользователями", description = "Принимает пользователей для импорта в БД, выводит информацию login/role из authentication")
 public class JWTRestApiController {
     private final JWTRestApiService service;
     private final Gson gson;
 
     @PostMapping("adduser")
     @PreAuthorize("hasAuthority('super_admin')")
+    @SecurityRequirement(name = "JWT")
+    @Operation(summary = "Загрузка пользователей", description = "Позволяет загрузить пользователей в БД")
     public ResponseEntity<String> getJwt(@Valid @RequestBody UserDAO userDAO) {
         String rsl = service.addUser(userDAO);
 
@@ -36,6 +42,8 @@ public class JWTRestApiController {
 
     @GetMapping("user")
     @PreAuthorize("isAuthenticated()")
+    @SecurityRequirement(name = "JWT")
+    @Operation(summary = "Вывод данных authentication", description = "Позволяет выводить информацию об login/role из authentication")
     public ResponseEntity<String> user(Authentication authentication) {
         Map<String, String> value = new HashMap<>();
         value.put("login", authentication.getPrincipal().toString());

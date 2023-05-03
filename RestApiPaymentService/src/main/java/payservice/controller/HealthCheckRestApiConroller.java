@@ -1,5 +1,8 @@
 package payservice.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +16,7 @@ import java.util.concurrent.*;
 @RestController
 @Slf4j
 @RequestMapping("/api/v1/")
+@Tag(name = "Аудита работоспособности - Healthcheck Edpoint", description = "Выводит статус сервиса")
 public class HealthCheckRestApiConroller {
     @Value("${health.check.response.timeout}")
     private int timeoutResp;
@@ -24,6 +28,8 @@ public class HealthCheckRestApiConroller {
 
     @GetMapping("healthcheck")
     @PreAuthorize("hasAuthority('user_full')")
+    @SecurityRequirement(name = "JWT")
+    @Operation(summary = "Вывод статуса сервиса", description = "Позволяет вывести текущий статус сервиса")
     public String healthCheck() {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.schedule((() -> service), timeoutResp, TimeUnit.SECONDS);
