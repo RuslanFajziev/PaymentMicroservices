@@ -53,7 +53,7 @@ public class PaymentRestApiService {
     }
 
     public PaymentDAO save(PaymentDAO paymentDAO) {
-        var userDAOOptional = reposUser.findByLogin(paymentDAO.getUserCreator());
+        var userDAOOptional = reposUser.findByUsername(paymentDAO.getUserCreator());
         var userCreator = userDAOOptional.isPresent() ? userDAOOptional.get().getFioUser() : "undefined";
         paymentDAO.setUserCreator(userCreator);
 

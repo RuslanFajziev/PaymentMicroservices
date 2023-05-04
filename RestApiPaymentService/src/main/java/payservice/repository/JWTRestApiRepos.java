@@ -6,5 +6,5 @@ import payservice.model.UserDAO;
 import java.util.Optional;
 
 public interface JWTRestApiRepos extends CrudRepository<UserDAO, Integer> {
-    Optional<UserDAO> findByLogin(String login);
+    Optional<UserDAO> findByUsername(String username);
 }

@@ -36,9 +36,9 @@ class RestApiPaymentServiceApplicationTests {
         userBad = UserDAO.of("artem", "12345678", "user_zero", "Atoyn Artem Batkovich");
         lstUser = new ArrayList<>(Arrays.asList(userFull, userRead, userBad));
         addUser(lstUser);
-        jwtUserFull = getJWT(userFull.getLogin(), userFull.getPasswordHash());
-        jwtUserRead = getJWT(userRead.getLogin(), userRead.getPasswordHash());
-        jwtUserBad = getJWT(userBad.getLogin(), userBad.getPasswordHash());
+        jwtUserFull = getJWT(userFull.getUsername(), userFull.getPassword());
+        jwtUserRead = getJWT(userRead.getUsername(), userRead.getPassword());
+        jwtUserBad = getJWT(userBad.getUsername(), userBad.getPassword());
 
         List<MetadataDTO> lstMetadata = new ArrayList<>(Arrays.asList(MetadataDTO.of(9999, "Moscow"),
                 MetadataDTO.of(4555, "Piter")));
@@ -53,7 +53,7 @@ class RestApiPaymentServiceApplicationTests {
         headers.add("Authorization", "Bearer " + jwtUserFull);
         ResponseEntity<UserDAO> response = restTemplate.exchange(getURI("user"),
                 HttpMethod.GET.GET, new HttpEntity<>(headers), UserDAO.class);
-        assertTrue(response.getBody().getLogin().equals(userFull.login));
+        assertTrue(response.getBody().getUsername().equals(userFull.username));
     }
 
     @Test
@@ -62,7 +62,7 @@ class RestApiPaymentServiceApplicationTests {
         headers.add("Authorization", "Bearer " + jwtUserRead);
         ResponseEntity<UserDAO> response = restTemplate.exchange(getURI("user"),
                 HttpMethod.GET.GET, new HttpEntity<>(headers), UserDAO.class);
-        assertTrue(response.getBody().getLogin().equals(userRead.login));
+        assertTrue(response.getBody().getUsername().equals(userRead.username));
     }
 
     @Test
@@ -71,7 +71,7 @@ class RestApiPaymentServiceApplicationTests {
         headers.add("Authorization", "Bearer " + jwtUserBad);
         ResponseEntity<UserDAO> response = restTemplate.exchange(getURI("user"),
                 HttpMethod.GET.GET, new HttpEntity<>(headers), UserDAO.class);
-        assertTrue(response.getBody().getLogin().equals(userBad.login));
+        assertTrue(response.getBody().getUsername().equals(userBad.username));
     }
 
     @Test
@@ -269,7 +269,7 @@ class RestApiPaymentServiceApplicationTests {
 
     private String getJWT(String login, String password) {
         var authRequest = new UserDTO();
-        authRequest.setLogin(login);
+        authRequest.setUsername(login);
         authRequest.setPassword(password);
         var authResponseJWT = restTemplate.postForObject(getURI("login"),
                 authRequest, AuthResponseJWT.class);

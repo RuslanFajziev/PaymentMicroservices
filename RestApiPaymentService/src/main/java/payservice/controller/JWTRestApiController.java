@@ -43,10 +43,10 @@ public class JWTRestApiController {
     @GetMapping("user")
     @PreAuthorize("isAuthenticated()")
     @SecurityRequirement(name = "JWT")
-    @Operation(summary = "Вывод данных authentication", description = "Позволяет выводить информацию об login/role из authentication")
+    @Operation(summary = "Вывод данных authentication", description = "Позволяет выводить информацию об username/role из authentication")
     public ResponseEntity<String> user(Authentication authentication) {
         Map<String, String> value = new HashMap<>();
-        value.put("login", authentication.getPrincipal().toString());
+        value.put("username", authentication.getPrincipal().toString());
         value.put("role", authentication.getAuthorities().toString());
         String body = gson.toJson(value);
 

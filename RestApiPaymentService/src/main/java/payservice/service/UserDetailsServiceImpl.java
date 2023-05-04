@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserDAO> optionalLogin = loginRep.findByLogin(username);
+        Optional<UserDAO> optionalLogin = loginRep.findByUsername(username);
         if (optionalLogin.isEmpty()) {
             log.info("Not found login={}", username);
             throw new UsernameNotFoundException(username);
@@ -35,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         lstRole.add(userDAO.getRole());
 
         log.info("Found login={}", username);
-        return new User(userDAO.getLogin(), userDAO.getPasswordHash(), getAuthorities(lstRole));
+        return new User(userDAO.getUsername(), userDAO.getPassword(), getAuthorities(lstRole));
     }
 
     private List<GrantedAuthority> getAuthorities(List<String> roles) {

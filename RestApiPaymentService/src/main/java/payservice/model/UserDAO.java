@@ -10,19 +10,18 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "Users_RestApiService")
 @Setter
 @Getter
-@Schema(description = "Сущность пользователя")
+@Schema(description = "Сущность импортируемого пользователя")
 public class UserDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     public int id;
-    @NotBlank(message = "login must be not empty")
-    @Schema(description = "login пользователя", example = "vadim")
-    public String login;
-    @Column(name = "password_hash")
-    @NotBlank(message = "passwordHash must be not empty")
+    @NotBlank(message = "username must be not empty")
+    @Schema(description = "username пользователя", example = "vadim")
+    public String username;
+    @NotBlank(message = "password must be not empty")
     @Schema(description = "password пользователя", example = "p@$$word")
-    public String passwordHash;
+    public String password;
     @NotBlank(message = "role must be not empty")
     @Schema(description = "role пользователя", example = "user_full")
     public String role;
@@ -31,11 +30,11 @@ public class UserDAO {
     @Schema(description = "ФИО пользователя", example = "Tsoy Vadim Batkovich")
     public String fioUser;
 
-    public static UserDAO of(String login, String passwordHash,
+    public static UserDAO of(String username, String password,
                              String role, String fioUser) {
         var usr = new UserDAO();
-        usr.setLogin(login);
-        usr.setPasswordHash(passwordHash);
+        usr.setUsername(username);
+        usr.setPassword(password);
         usr.setRole(role);
         usr.setFioUser(fioUser);
         return usr;

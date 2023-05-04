@@ -17,15 +17,15 @@ public class JWTRestApiService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public String addUser(UserDAO userDAO) {
-        if (userDAO.getPasswordHash().length() < 8) {
+        if (userDAO.getPassword().length() < 8) {
             throw new IllegalArgumentException("Password is too short < 8");
         }
 
-        var userDAOOptional = findByLogin(userDAO.getLogin());
+        var userDAOOptional = findByLogin(userDAO.getUsername());
         String rsl;
 
         if (userDAOOptional.isEmpty()) {
-            userDAO.setPasswordHash(bCryptPasswordEncoder.encode(userDAO.passwordHash));
+            userDAO.setPassword(bCryptPasswordEncoder.encode(userDAO.password));
             repos.save(userDAO);
             rsl = "user successfully added";
         } else {
@@ -35,6 +35,6 @@ public class JWTRestApiService {
     }
 
     public Optional<UserDAO> findByLogin(String login) {
-        return repos.findByLogin(login);
+        return repos.findByUsername(login);
     }
 }

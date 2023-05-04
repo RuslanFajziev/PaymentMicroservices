@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3f22773e-30ae-4899-926c-238e0a0113e8",
+		"_postman_id": "bf566a8c-a6ed-47c4-a495-ecd56744fec8",
 		"name": "PaymentMicroservices",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16258514"
@@ -10,13 +10,20 @@
 			"name": "Add user for Rest Api",
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNsYWltQXV0aG9yaXRpZXMiOlsic3VwZXJfYWRtaW4iXSwiZXhwIjoxNjg0MDk5MTY1fQ.mNJWNR0WuFHHn7FmLB4mX3oTCKVO7jDcjYwn57ReNOSRXWJ_GA5X1EwyBAgkHBY-OlXEcc518DCurVRVkisJnw",
+							"type": "string"
+						}
+					]
 				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"login\" : \"artem3\",\r\n    \"passwordHash\" : \"123456\",\r\n    \"role\" : \"user_zero3\",\r\n    \"fioUser\" : \"Atoyn3 Artem Batkovich3\"\r\n}",
+					"raw": "{\r\n    \"username\" : \"tima\",\r\n    \"password\" : \"12345678\",\r\n    \"role\" : \"user_read\",\r\n    \"fioUser\" : \"Chudov Tima C#ovich\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -45,7 +52,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4MTMyNzY4N30.zbBHyfy9n4X6P_1MbRB8hsmsn9tDCedXQGH6bTB3mqc96ZBIcEH5HvDujYgmS5mlG6E7CH0FieCvdxXojSE_Cw",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
 							"type": "string"
 						}
 					]
@@ -68,31 +75,19 @@
 		},
 		{
 			"name": "Get Healthcheck",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGltYSIsImV4cCI6MTY3MTc0MjEwNSwiaXNzIjoiTXlBdXRoU2VydmVyIiwiYXVkIjoiTXlBdXRoQ2xpZW50In0.yCmyyxpsdxqTGra5-AO-Srt3dXv0CM-1PISEc6o5Vog",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
 							"type": "string"
 						}
 					]
 				},
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"nameServce\" : \"delivery\",\r\n    \"sum\" : 500,\r\n    \"data\" : [\r\n        {\r\n        \"rrn\": 555,\r\n        \"sity\": \"Moscow\"\r\n    },\r\n    {\r\n        \"rrn\": 777,\r\n        \"sity\": \"Piter\"\r\n    }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "{{url}}/api/v1/healthcheck",
 					"host": [
@@ -115,7 +110,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGltYSIsImV4cCI6MTY3MTc0MjEwNSwiaXNzIjoiTXlBdXRoU2VydmVyIiwiYXVkIjoiTXlBdXRoQ2xpZW50In0.yCmyyxpsdxqTGra5-AO-Srt3dXv0CM-1PISEc6o5Vog",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
 							"type": "string"
 						}
 					]
@@ -145,7 +140,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmFkaW0yIiwiZXhwIjoxNjcxNzQyNTYzLCJpc3MiOiJNeUF1dGhTZXJ2ZXIiLCJhdWQiOiJNeUF1dGhDbGllbnQifQ.l5ruG1uCYT3EMb-6RUwEqOX4dhveN62_zP2chpGaOB0",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
 							"type": "string"
 						}
 					]
@@ -153,7 +148,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/v1/payment/get/23",
+					"raw": "{{url}}/api/v1/payment/get/61",
 					"host": [
 						"{{url}}"
 					],
@@ -162,7 +157,7 @@
 						"v1",
 						"payment",
 						"get",
-						"23"
+						"61"
 					]
 				}
 			},
@@ -176,7 +171,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmFkaW0yIiwiZXhwIjoxNjcxNzQyNTYzLCJpc3MiOiJNeUF1dGhTZXJ2ZXIiLCJhdWQiOiJNeUF1dGhDbGllbnQifQ.l5ruG1uCYT3EMb-6RUwEqOX4dhveN62_zP2chpGaOB0",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
 							"type": "string"
 						}
 					]
@@ -220,7 +215,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmFkaW0yIiwiZXhwIjoxNjczOTEyMTQwLCJpc3MiOiJNeUF1dGhTZXJ2ZXIiLCJhdWQiOiJNeUF1dGhDbGllbnQifQ.eRaY5acakwMRxlPzP2LERMnu0iaDn_ml1XFLKnDMKmQ",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
 							"type": "string"
 						}
 					]
@@ -246,6 +241,34 @@
 						"v1",
 						"payment",
 						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get JWT by login password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"login"
 					]
 				}
 			},

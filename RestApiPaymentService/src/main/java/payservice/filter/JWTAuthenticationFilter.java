@@ -44,7 +44,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             UserDTO userDTO = new ObjectMapper()
                     .readValue(req.getInputStream(), UserDTO.class);
 
-            return auth.authenticate(new UsernamePasswordAuthenticationToken(userDTO.login,
+            return auth.authenticate(new UsernamePasswordAuthenticationToken(userDTO.username,
                     userDTO.password, new ArrayList<>()));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -74,7 +74,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //        res.addHeader(HEADERSTRING, TOKENPREFIX + token);
 
         AuthResponseJWT body = new AuthResponseJWT();
-        body.setLogin(userName);
+        body.setUsername(userName);
         body.setAccessToken(token);
 
         res.getWriter().write(gson.toJson(body));
