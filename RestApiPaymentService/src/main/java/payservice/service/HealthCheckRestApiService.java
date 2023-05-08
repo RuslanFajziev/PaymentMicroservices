@@ -2,6 +2,7 @@ package payservice.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import payservice.config.StatusHealth;
 import payservice.model.PaymentDAO;
 import payservice.repository.HealthchekRestApiRepos;
 
@@ -13,7 +14,7 @@ import java.util.Map;
 public class HealthCheckRestApiService implements Runnable {
     private final HealthchekRestApiRepos repos;
     private final KafkaProducerPaymentRestApiService serviceKafkaProducer;
-    private Map<String, String> mapStatus;
+    private Map<String, StatusHealth> mapStatus;
 
     public HealthCheckRestApiService(HealthchekRestApiRepos repos, KafkaProducerPaymentRestApiService serviceKafkaProducer) {
         this.repos = repos;
@@ -22,20 +23,20 @@ public class HealthCheckRestApiService implements Runnable {
     }
 
     public String getStatus() {
-        return mapStatus.get("Status");
+        return mapStatus.get("Status").toString();
     }
 
-    public String checkHealthSql() {
+    public StatusHealth checkHealthSql() {
         try {
             var optPay = repos.findTopByOrderByIdAsc();
-            return "Healthy";
+            return StatusHealth.HEALTHY;
         } catch (Exception ex) {
             log.error("\nfailed to deliver query\n{}", ex);
-            return "Degraded";
+            return StatusHealth.DEGRADED;
         }
     }
 
-    public String checkHealthKafka() {
+    public StatusHealth checkHealthKafka() {
         var pay = new PaymentDAO();
         pay.setTestPay(true);
 
@@ -43,7 +44,7 @@ public class HealthCheckRestApiService implements Runnable {
             return serviceKafkaProducer.send(0, pay);
         } catch (Exception ex) {
             log.error("\nfailed to deliver message\n{}", ex);
-            return "Degraded";
+            return StatusHealth.DEGRADED;
         }
     }
 
@@ -52,19 +53,19 @@ public class HealthCheckRestApiService implements Runnable {
         var rslKafka = checkHealthKafka();
         var statusArray = new String[]{"Degraded", "Unhealthy", "Healthy"};
 
-        if (rslSql.equals(statusArray[0]) || rslKafka.equals(statusArray[0])) {
-            mapStatus.put("Status", statusArray[0]);
+        if (rslSql.equals(StatusHealth.DEGRADED) || rslKafka.equals(StatusHealth.DEGRADED)) {
+            mapStatus.put("Status", StatusHealth.DEGRADED);
             return;
-        } else if (rslSql.equals(statusArray[1]) || rslKafka.equals(statusArray[1])) {
-            mapStatus.put("Status", statusArray[1]);
+        } else if (rslSql.equals(StatusHealth.UNHEALTHY) || rslKafka.equals(StatusHealth.UNHEALTHY)) {
+            mapStatus.put("Status", StatusHealth.UNHEALTHY);
             return;
         }
-        mapStatus.put("Status", statusArray[2]);
+        mapStatus.put("Status", StatusHealth.HEALTHY);
     }
 
     @Override
     public void run() {
-        mapStatus.put("Status", "Degraded");
+        mapStatus.put("Status", StatusHealth.DEGRADED);
         checkHealthAll();
     }
 }

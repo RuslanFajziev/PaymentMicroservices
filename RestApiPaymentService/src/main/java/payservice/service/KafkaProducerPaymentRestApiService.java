@@ -2,6 +2,7 @@ package payservice.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.concurrent.ListenableFutureCallback;
+import payservice.config.StatusHealth;
 import payservice.model.PaymentDAO;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -19,19 +20,19 @@ public class KafkaProducerPaymentRestApiService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public String send(int id, PaymentDAO paymentDAO) {
-        final String[] rsl = new String[1];
+    public StatusHealth send(int id, PaymentDAO paymentDAO) {
+        final StatusHealth[] rsl = new StatusHealth[1];
         ListenableFuture<SendResult<Integer, PaymentDAO>> future = kafkaTemplate.send(topic, id, paymentDAO);
 
         future.addCallback(new ListenableFutureCallback<>() {
             @Override
             public void onSuccess(SendResult<Integer, PaymentDAO> result) {
-                rsl[0] = "Healthy";
+                rsl[0] = StatusHealth.HEALTHY;
             }
 
             @Override
             public void onFailure(Throwable ex) {
-                rsl[0] = "Unhealthy";
+                rsl[0] = StatusHealth.UNHEALTHY;
             }
         });
 
