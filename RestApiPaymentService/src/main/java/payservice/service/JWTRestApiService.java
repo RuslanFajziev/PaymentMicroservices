@@ -37,4 +37,9 @@ public class JWTRestApiService {
     public Optional<UserDAO> findByLogin(String login) {
         return repos.findByUsername(login);
     }
+
+    public String getFioUser(String login) {
+        var optionalUserDAO = findByLogin(login);
+        return optionalUserDAO.isPresent() ? optionalUserDAO.get().getFioUser() : "undefined";
+    }
 }

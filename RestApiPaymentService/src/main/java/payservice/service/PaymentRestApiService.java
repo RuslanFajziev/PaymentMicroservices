@@ -1,8 +1,8 @@
 package payservice.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import payservice.model.PaymentDAO;
-import payservice.repository.JWTRestApiRepos;
 import payservice.repository.PaymentRestApiRepos;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,10 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class PaymentRestApiService {
     private final PaymentRestApiRepos repos;
-    private final JWTRestApiRepos reposUser;
+    private final JWTRestApiService service;
     private final KafkaProducerPaymentRestApiService serviceKafkaProducer;
 
     public List<PaymentDAO> findAll() {
@@ -53,12 +54,14 @@ public class PaymentRestApiService {
     }
 
     public PaymentDAO save(PaymentDAO paymentDAO) {
-        var userDAOOptional = reposUser.findByUsername(paymentDAO.getUserCreator());
-        var userCreator = userDAOOptional.isPresent() ? userDAOOptional.get().getFioUser() : "undefined";
-        paymentDAO.setUserCreator(userCreator);
+        paymentDAO.setUserCreator(service.getFioUser(paymentDAO.getUserCreator()));
 
         var payDAO = repos.save(paymentDAO);
-        serviceKafkaProducer.send(payDAO.getId(), payDAO);
+        try {
+            serviceKafkaProducer.send(payDAO.getId(), payDAO);
+        } catch (Exception ex) {
+            log.error("\nfailed to deliver pay\n{}", ex);
+        }
 
         return payDAO;
     }

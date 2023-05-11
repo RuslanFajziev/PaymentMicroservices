@@ -51,7 +51,6 @@ public class HealthCheckRestApiService implements Runnable {
     public void checkHealthAll() {
         var rslSql = checkHealthSql();
         var rslKafka = checkHealthKafka();
-        var statusArray = new String[]{"Degraded", "Unhealthy", "Healthy"};
 
         if (rslSql.equals(StatusHealth.DEGRADED) || rslKafka.equals(StatusHealth.DEGRADED)) {
             mapStatus.put("Status", StatusHealth.DEGRADED);

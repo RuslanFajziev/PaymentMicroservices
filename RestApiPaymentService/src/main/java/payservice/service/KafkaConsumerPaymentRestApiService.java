@@ -17,8 +17,7 @@ public class KafkaConsumerPaymentRestApiService {
     public void orderListener(ConsumerRecord<Integer, PayUpdateDTO> record) {
         var payUpdateDTO = record.value();
 
-        System.out.printf("partition:%s, key:%s, value:%s\n",
-                record.partition(), record.key(), payUpdateDTO);
+        log.info("\npartition:{}, key{}, value:{}", record.partition(), record.key(), payUpdateDTO);
 
         var rowUpdated = service.update(payUpdateDTO.correlationId, payUpdateDTO.statusPayment);
         if (rowUpdated > 0) {

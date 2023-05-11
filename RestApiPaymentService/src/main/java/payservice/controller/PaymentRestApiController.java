@@ -48,9 +48,7 @@ public class PaymentRestApiController {
             body = gson.toJson(value);
         }
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(body);
+        return getResponse(body);
     }
 
     @GetMapping("/get/{id}")
@@ -70,9 +68,7 @@ public class PaymentRestApiController {
             body = gson.toJson(value);
         }
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(body);
+        return getResponse(body);
     }
 
     @GetMapping("/getbyfilter")
@@ -95,9 +91,7 @@ public class PaymentRestApiController {
             body = gson.toJson(value);
         }
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(body);
+        return getResponse(body);
     }
 
     @PostMapping("/add")
@@ -110,5 +104,11 @@ public class PaymentRestApiController {
         PaymentDAO paymentDAO = PaymentDAO.of(paymentDTO.nameService, paymentDTO.amount,
                 gson.toJson(paymentDTO.metadate), "created", login);
         return service.save(paymentDAO);
+    }
+
+    private ResponseEntity<String> getResponse(String body) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(body);
     }
 }
