@@ -30,6 +30,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
+        
         String header = req.getHeader(HEADERSTRING);
 
         if (header == null || !header.startsWith(TOKENPREFIX)) {
@@ -64,9 +65,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private List<GrantedAuthority> getAuthorities(List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
+        roles.stream().forEach(elm -> authorities.add(new SimpleGrantedAuthority(elm)));
         return authorities;
     }
 }
