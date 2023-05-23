@@ -11,7 +11,7 @@
     <groupId>ru.job4j</groupId>
     <artifactId>RestApiPaymentService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>payservice</name>
+    <name>PayService</name>
     <description>Rest Api Payment Service</description>
     <properties>
         <java.version>17</java.version>

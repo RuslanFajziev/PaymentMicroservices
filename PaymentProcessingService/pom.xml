@@ -11,7 +11,7 @@
     <groupId>ru.job4j</groupId>
     <artifactId>PaymentProcessingService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>procservice</name>
+    <name>ProcService</name>
     <description>Payment Processing Service</description>
     <properties>
         <java.version>17</java.version>
