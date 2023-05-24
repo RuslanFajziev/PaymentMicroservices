@@ -2,7 +2,8 @@ package securityservice.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +18,10 @@ import securityservice.service.UserService;
 public class UserController {
     private final UserService service;
 
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping({"/", "index"})
+    @PreAuthorize("hasAuthority('super_admin')")
     public String getIndex(Model model) {
         model.addAttribute("userServiceList", service.getAll());
         model.addAttribute("userCurrent", "JavaUsr");
@@ -32,29 +34,35 @@ public class UserController {
         return "user_edit";
     }
 
-    @PostMapping("/user_update")
+    @PostMapping({"/user_update", "/user_add"})
+    @PreAuthorize("hasAuthority('super_admin')")
     public String userUpdate(UserDAO userDAO) {
-//        userDAO.setPassword(bCryptPasswordEncoder.encode(userDAO.password));
-        service.addUser(userDAO);
-        return "redirect:/";
-    }
-
-    @PostMapping("/user_add")
-    public String userAdd(UserDAO userDAO) {
-//        userDAO.setPassword(bCryptPasswordEncoder.encode(userDAO.password));
+        userDAO.setPassword(bCryptPasswordEncoder.encode(userDAO.password));
         service.addUser(userDAO);
         return "redirect:/";
     }
 
     @GetMapping("/user_add")
+    @PreAuthorize("hasAuthority('super_admin')")
     public String userAdd() {
         return "user_add";
     }
 
     @GetMapping("/user_del{id}")
+    @PreAuthorize("hasAuthority('super_admin')")
     public String userDel(@RequestParam int id) {
         service.delUserById(id);
         return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/AccessDenied")
+    public String access() {
+        return "AccessDenied";
     }
 
 //    @PostMapping("/login")

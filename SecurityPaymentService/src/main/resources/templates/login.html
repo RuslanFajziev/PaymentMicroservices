@@ -1,7 +1,7 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>User add</title>
+    <title>Login Form</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -22,22 +22,18 @@
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
-            <div class="card-header">
-                User add
-            </div>
+            <div th:if="${param.logout}" class="alert alert-info" role="alert">Login Form - You have been logout</div>
+            <div th:if="${param.error}" class="alert alert-danger" role="alert">Login Form - Invalid username and password</div>
+            <div th:if="!${param.logout} and !${param.error}" class="alert alert-success" role="alert">Login Form</div>
             <div class="card-body">
-                <form name='login' action="#" th:action="@{/user_add}" method='POST'>
+                <form name='login' action="#" th:action="@{/login}" method='POST'>
                     <div class="form-group">
                         <label>user name</label>
                         <input type="text" required class="form-control" name="username"/>
                         <label>password</label>
-                        <input type="password" required class="form-control" name="password" minlength="8"/>
-                        <label>role</label>
-                        <input type="text" required class="form-control" name="role"/>
-                        <label>fio user</label>
-                        <input type="text" required class="form-control" name="fioUser"/>
+                        <input type="password" required class="form-control" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">save</button>
+                    <button type="submit" class="btn btn-primary">ok</button>
                 </form>
             </div>
         </div>

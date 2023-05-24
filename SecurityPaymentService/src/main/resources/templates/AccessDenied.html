@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>User add</title>
+    <title>Access denied</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -23,22 +23,11 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                User add
+                Access denied
             </div>
             <div class="card-body">
-                <form name='login' action="#" th:action="@{/user_add}" method='POST'>
-                    <div class="form-group">
-                        <label>user name</label>
-                        <input type="text" required class="form-control" name="username"/>
-                        <label>password</label>
-                        <input type="password" required class="form-control" name="password" minlength="8"/>
-                        <label>role</label>
-                        <input type="text" required class="form-control" name="role"/>
-                        <label>fio user</label>
-                        <input type="text" required class="form-control" name="fioUser"/>
-                    </div>
-                    <button type="submit" class="btn btn-primary">save</button>
-                </form>
+                <h2>Sorry, you do not have permission to view this page.</h2>
+                 <a href="/logout">Click here to go back to the Login-page</a>
             </div>
         </div>
     </div>
