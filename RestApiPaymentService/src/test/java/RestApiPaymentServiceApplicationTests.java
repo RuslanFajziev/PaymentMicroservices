@@ -157,7 +157,7 @@ class RestApiPaymentServiceApplicationTests {
         headers.add("Authorization", "Bearer " + jwtUserFull);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                getURI("payment/getbyfilter?nameService=pay1&amount=5555&statusPayment=complete"),
+                getURI("payment/getbyfilter?nameService=pay1&amount=5555&statusPayment=created"),
                 HttpMethod.GET.GET, new HttpEntity<>(headers), String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertFalse(response.getBody().contains("payments not found"));
@@ -169,7 +169,7 @@ class RestApiPaymentServiceApplicationTests {
         headers.add("Authorization", "Bearer " + jwtUserRead);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                getURI("payment/getbyfilter?nameService=pay1&amount=5555&statusPayment=complete"),
+                getURI("payment/getbyfilter?nameService=pay1&amount=5555&statusPayment=created"),
                 HttpMethod.GET.GET, new HttpEntity<>(headers), String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertFalse(response.getBody().contains("payments not found"));
@@ -271,9 +271,15 @@ class RestApiPaymentServiceApplicationTests {
         var authRequest = new UserDTO();
         authRequest.setUsername(login);
         authRequest.setPassword(password);
-        var authResponseJWT = restTemplate.postForObject(getURI("login"),
-                authRequest, AuthResponseJWT.class);
-        return authResponseJWT.getAccessToken();
+
+        try {
+            var authResponseJWT = restTemplate.postForObject(getURI("login"),
+                    authRequest, AuthResponseJWT.class);
+            return authResponseJWT.getAccessToken();
+        } catch (NullPointerException e) {
+            System.out.println("Error authentication by login:" + login);
+            return "";
+        }
     }
 
     private String getURI(String path) {

@@ -30,7 +30,11 @@ public class UserService {
         repos.deleteById(id);
     }
 
-    public UserDAO addUser(UserDAO userDAO) {
-        return repos.save(userDAO);
+    public boolean addUser(UserDAO userDAO) {
+        if (repos.countAllByUsernameAndIdNot(userDAO.username, userDAO.id) > 0) {
+            return false;
+        }
+        repos.save(userDAO);
+        return true;
     }
 }

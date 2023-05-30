@@ -36,10 +36,18 @@ public class UserController {
 
     @PostMapping({"/user_update", "/user_add"})
     @PreAuthorize("hasAuthority('super_admin')")
-    public String userUpdate(UserDAO userDAO) {
+    public String userUpdate(Model model, UserDAO userDAO) {
         userDAO.setPassword(bCryptPasswordEncoder.encode(userDAO.password));
-        service.addUser(userDAO);
-        return "redirect:/";
+        var rsl = service.addUser(userDAO);
+        if (rsl) {
+            return "redirect:/";
+        } else {
+            userDAO.setUsername("");
+            userDAO.setPassword("");
+            model.addAttribute("errorMessage", "This name is already registered");
+            model.addAttribute("userService", userDAO);
+            return "user_edit";
+        }
     }
 
     @GetMapping("/user_add")

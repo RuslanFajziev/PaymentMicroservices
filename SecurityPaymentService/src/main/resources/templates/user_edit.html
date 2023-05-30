@@ -22,7 +22,9 @@
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
-            <div class="card-header">
+            <div th:text="'User edit - ' + ${errorMessage}" th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            </div>
+            <div th:if="!${errorMessage}" class="alert alert-info">
                 User edit
             </div>
             <div class="card-body">
