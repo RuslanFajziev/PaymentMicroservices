@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Objects;
 
 @Entity
 @Setter
@@ -21,21 +20,4 @@ public class RoleDAO {
     @NotBlank(message = "rolename must be not empty")
     @Schema(description = "rolename пользователя", example = "user_full")
     public String rolename;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        RoleDAO roleDAO = (RoleDAO) o;
-        return Objects.equals(rolename, roleDAO.rolename);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(rolename);
-    }
 }

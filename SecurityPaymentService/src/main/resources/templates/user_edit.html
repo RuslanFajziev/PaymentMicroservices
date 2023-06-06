@@ -35,10 +35,13 @@
                         <input type="text" required class="form-control" name="username" th:value="${userService.username}"/>
                         <label>password</label>
                         <input type="password" required class="form-control" name="password" minlength="8"/>
-                        <label>role</label>
-                        <input type="text" required class="form-control" name="role" th:value="${userService.role}"/>
                         <label>fio user</label>
                         <input type="text" required class="form-control" name="fioUser" th:value="${userService.fioUser}"/>
+                        <label>Role name menu</label>
+                        <select name="roleId" class="form-select form-select-sm" required>
+                            <option></option>
+                            <option th:each="role : ${roleList}" th:value="${role.id}" th:text="${role.rolename}"></option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">save</button>
                 </form>

@@ -6,7 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Users_RestApiService")
@@ -33,31 +32,4 @@ public class UserDAO {
     @NotBlank(message = "fioUser must be not empty")
     @Schema(description = "ФИО пользователя", example = "Tsoy Vadim Batkovich")
     public String fioUser;
-
-    public static UserDAO of(String username, String password,
-                             RoleDAO role, String fioUser) {
-        var usr = new UserDAO();
-        usr.setUsername(username);
-        usr.setPassword(password);
-        usr.setRole(role);
-        usr.setFioUser(fioUser);
-        return usr;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        UserDAO userDAO = (UserDAO) o;
-        return Objects.equals(username, userDAO.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username);
-    }
 }

@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import payservice.model.RoleDAO;
 import payservice.repository.RolesRestApiRepos;
 
-import java.util.Objects;
-
 @AllArgsConstructor
 @Slf4j
 @Service

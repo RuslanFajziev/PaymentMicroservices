@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import securityservice.model.RoleDAO;
 import securityservice.model.UserDAO;
 import securityservice.repository.UserRepos;
 
@@ -31,17 +32,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         var userDAO = optionalLogin.get();
-        List<String> lstRole = new ArrayList<>();
+        List<RoleDAO> lstRole = new ArrayList<>();
         lstRole.add(userDAO.getRole());
 
         log.info("Found login={}", username);
         return new User(userDAO.getUsername(), userDAO.getPassword(), getAuthorities(lstRole));
     }
 
-    private List<GrantedAuthority> getAuthorities(List<String> roles) {
+    private List<GrantedAuthority> getAuthorities(List<RoleDAO> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
+        for (RoleDAO role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRolename()));
         }
         return authorities;
     }
