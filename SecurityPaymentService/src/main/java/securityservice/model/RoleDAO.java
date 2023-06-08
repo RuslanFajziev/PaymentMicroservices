@@ -14,4 +14,10 @@ public class RoleDAO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     public String rolename;
+
+    public static RoleDAO of(String rolename) {
+        var roleDAO = new RoleDAO();
+        roleDAO.setRolename(rolename);
+        return roleDAO;
+    }
 }

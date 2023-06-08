@@ -20,4 +20,10 @@ public class RoleDAO {
     @NotBlank(message = "rolename must be not empty")
     @Schema(description = "rolename пользователя", example = "user_full")
     public String rolename;
+
+    public static RoleDAO of(String roleName) {
+        var roleDAO = new RoleDAO();
+        roleDAO.setRolename(roleName);
+        return roleDAO;
+    }
 }

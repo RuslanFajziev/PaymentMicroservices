@@ -35,8 +35,7 @@ public class JWTRestApiController {
     @SecurityRequirement(name = "JWT")
     @Operation(summary = "Загрузка пользователей", description = "Позволяет загрузить пользователей в БД")
     public ResponseEntity<String> getJwt(@Valid @RequestBody UserDAO userDAO) {
-        serviceRole.addRole(userDAO.getRole());
-        String rsl = serviceUser.addUser(userDAO);
+        String rsl = serviceUser.addUser(userDAO, userDAO.getRole());
 
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)

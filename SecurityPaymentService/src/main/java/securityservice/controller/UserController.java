@@ -3,7 +3,6 @@ package securityservice.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +18,6 @@ import securityservice.service.UserService;
 public class UserController {
     private final UserService service;
     private final RoleService serviceRole;
-
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping({"/", "index"})
     @PreAuthorize("hasAuthority('super_admin')")
@@ -39,9 +36,7 @@ public class UserController {
     @PostMapping({"/user_update", "/user_add"})
     @PreAuthorize("hasAuthority('super_admin')")
     public String userUpdate(Model model, UserDAO userDAO, int roleId) {
-        userDAO.setPassword(bCryptPasswordEncoder.encode(userDAO.getPassword()));
-        userDAO.setRole(serviceRole.getRoleById(roleId));
-        var rsl = service.addUser(userDAO);
+        var rsl = service.addUser(userDAO, roleId);
         if (rsl) {
             return "redirect:/";
         } else {

@@ -32,4 +32,13 @@ public class UserDAO {
     @NotBlank(message = "fioUser must be not empty")
     @Schema(description = "ФИО пользователя", example = "Tsoy Vadim Batkovich")
     public String fioUser;
+
+    public static UserDAO of(String username, String password, String roleName, String fioUser) {
+        var userDAO = new UserDAO();
+        userDAO.setUsername(username);
+        userDAO.setPassword(password);
+        userDAO.setRole(RoleDAO.of(roleName));
+        userDAO.setFioUser(fioUser);
+        return userDAO;
+    }
 }

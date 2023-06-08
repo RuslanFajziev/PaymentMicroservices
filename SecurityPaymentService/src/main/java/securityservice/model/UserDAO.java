@@ -20,4 +20,13 @@ public class UserDAO {
     public RoleDAO role;
     @Column(name = "fio_user")
     public String fioUser;
+
+    public static UserDAO of(String username, String password, RoleDAO role, String fioUser) {
+        var userDAO = new UserDAO();
+        userDAO.setUsername(username);
+        userDAO.setPassword(password);
+        userDAO.setRole(role);
+        userDAO.setFioUser(fioUser);
+        return userDAO;
+    }
 }

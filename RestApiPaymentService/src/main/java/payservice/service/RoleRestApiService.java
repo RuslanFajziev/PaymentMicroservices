@@ -12,9 +12,11 @@ import payservice.repository.RolesRestApiRepos;
 public class RoleRestApiService {
     private final RolesRestApiRepos repos;
 
-    public void addRole(RoleDAO role) {
-        if (repos.findByRolename(role.getRolename()).isEmpty()) {
-            repos.save(role);
+    public boolean addRole(RoleDAO role) {
+        if (repos.countAllByRolenameAndIdNot(role.rolename, role.id) > 0) {
+            return false;
         }
+        repos.save(role);
+        return true;
     }
 }

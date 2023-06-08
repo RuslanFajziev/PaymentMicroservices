@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface RolesRestApiRepos extends CrudRepository<RoleDAO, Integer> {
     Optional<RoleDAO> findByRolename(String role);
+
+    int countAllByRolenameAndIdNot(String rolename, int id);
 }
