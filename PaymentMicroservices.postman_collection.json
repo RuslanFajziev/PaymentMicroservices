@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bf566a8c-a6ed-47c4-a495-ecd56744fec8",
+		"_postman_id": "a55c5dfd-a24b-4e52-baf6-21b5cccc77b6",
 		"name": "PaymentMicroservices",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16258514"
@@ -14,7 +14,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNsYWltQXV0aG9yaXRpZXMiOlsic3VwZXJfYWRtaW4iXSwiZXhwIjoxNjg0MDk5MTY1fQ.mNJWNR0WuFHHn7FmLB4mX3oTCKVO7jDcjYwn57ReNOSRXWJ_GA5X1EwyBAgkHBY-OlXEcc518DCurVRVkisJnw",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNsYWltQXV0aG9yaXRpZXMiOlsic3VwZXJfYWRtaW4iXSwiZXhwIjoxNjg3MjA2OTI5fQ.5wD_vfHKpZlNY-yQBJDsQ-2-r51F1f32SIgOazEZ_vGym-G0IU13jdfEDICuMNV7V9_9KDRlKAVC_g1Z9aMnbg",
 							"type": "string"
 						}
 					]
@@ -23,7 +23,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\" : \"tima\",\r\n    \"password\" : \"12345678\",\r\n    \"role\" : \"user_read\",\r\n    \"fioUser\" : \"Chudov Tima C#ovich\"\r\n}",
+					"raw": "{\r\n    \"username\" : \"tima3\",\r\n    \"password\" : \"12345678\",\r\n    \"role\" : {\"rolename\" : \"user_read3\"},\r\n    \"fioUser\" : \"Chudov Tima C#ovich\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -52,7 +52,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNsYWltQXV0aG9yaXRpZXMiOlsic3VwZXJfYWRtaW4iXSwiZXhwIjoxNjg3MjA2OTI5fQ.5wD_vfHKpZlNY-yQBJDsQ-2-r51F1f32SIgOazEZ_vGym-G0IU13jdfEDICuMNV7V9_9KDRlKAVC_g1Z9aMnbg",
 							"type": "string"
 						}
 					]
@@ -81,7 +81,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NzIwNzA5M30.IHVICl_r0aSnHQxKL1Hn1lhQwPtEfZNPgIqSpNhiX-hsWNPO11RFCN93BZQ4ojpYxXPGVWyhO7_pLQoBu79XUA",
 							"type": "string"
 						}
 					]
@@ -110,7 +110,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NzIwNzA5M30.IHVICl_r0aSnHQxKL1Hn1lhQwPtEfZNPgIqSpNhiX-hsWNPO11RFCN93BZQ4ojpYxXPGVWyhO7_pLQoBu79XUA",
 							"type": "string"
 						}
 					]
@@ -140,7 +140,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NzIwNzA5M30.IHVICl_r0aSnHQxKL1Hn1lhQwPtEfZNPgIqSpNhiX-hsWNPO11RFCN93BZQ4ojpYxXPGVWyhO7_pLQoBu79XUA",
 							"type": "string"
 						}
 					]
@@ -148,7 +148,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/v1/payment/get/61",
+					"raw": "{{url}}/api/v1/payment/get/17",
 					"host": [
 						"{{url}}"
 					],
@@ -157,7 +157,7 @@
 						"v1",
 						"payment",
 						"get",
-						"61"
+						"17"
 					]
 				}
 			},
@@ -171,7 +171,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NzIwNzA5M30.IHVICl_r0aSnHQxKL1Hn1lhQwPtEfZNPgIqSpNhiX-hsWNPO11RFCN93BZQ4ojpYxXPGVWyhO7_pLQoBu79XUA",
 							"type": "string"
 						}
 					]
@@ -179,7 +179,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/v1/payment/getbyfilter?nameService=flystep&amount=5555&statusPayment=complete",
+					"raw": "{{url}}/api/v1/payment/getbyfilter?nameService=flystep&amount=5555&statusPayment=created",
 					"host": [
 						"{{url}}"
 					],
@@ -200,7 +200,7 @@
 						},
 						{
 							"key": "statusPayment",
-							"value": "complete"
+							"value": "created"
 						}
 					]
 				}
@@ -215,7 +215,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NDA5ODc2OH0.zhuWyXMK6zzy9RTHnPbw-mKIVqHz6gjpVODqmGWmbjRcZqGuZm1YHdghEk8DuxEzORIO4HijGXdTvFtUaCILTA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2YWRpbSIsImNsYWltQXV0aG9yaXRpZXMiOlsidXNlcl9mdWxsIl0sImV4cCI6MTY4NzIwNzA5M30.IHVICl_r0aSnHQxKL1Hn1lhQwPtEfZNPgIqSpNhiX-hsWNPO11RFCN93BZQ4ojpYxXPGVWyhO7_pLQoBu79XUA",
 							"type": "string"
 						}
 					]
@@ -253,7 +253,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+					"raw": "{\r\n    \"username\" : \"vadim\",\r\n    \"password\" : \"p@$$word\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

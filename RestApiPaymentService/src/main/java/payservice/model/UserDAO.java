@@ -24,7 +24,7 @@ public class UserDAO {
     @Schema(description = "password пользователя", example = "p@$$word")
     public String password;
     @NotNull(message = "role must be not empty")
-    @Schema(description = "role пользователя", example = "rolename : user_full")
+    @Schema(description = "role пользователя")
     @ManyToOne
     @JoinColumn(name = "role_id")
     public RoleDAO role;

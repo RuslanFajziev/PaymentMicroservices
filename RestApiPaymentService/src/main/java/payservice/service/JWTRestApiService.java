@@ -31,7 +31,9 @@ public class JWTRestApiService {
 
         serviceRole.addRole(roleDAO);
         var optionalRoleDAO = reposRole.findByRolename(roleDAO.getRolename());
-        if (optionalRoleDAO.isEmpty()) return "role search error";
+        if (optionalRoleDAO.isEmpty()) {
+            return "role search error";
+        }
 
         if (userDAOOptional.isEmpty()) {
             userDAO.setPassword(bCryptPasswordEncoder.encode(userDAO.password));
