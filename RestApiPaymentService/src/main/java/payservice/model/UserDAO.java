@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Users_RestApiService")
@@ -22,21 +23,22 @@ public class UserDAO {
     @NotBlank(message = "password must be not empty")
     @Schema(description = "password пользователя", example = "p@$$word")
     public String password;
-    @NotBlank(message = "role must be not empty")
-    @Schema(description = "role пользователя", example = "user_full")
-    public String role;
+    @NotNull(message = "role must be not empty")
+    @Schema(description = "role пользователя")
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    public RoleDAO role;
     @Column(name = "fio_user")
     @NotBlank(message = "fioUser must be not empty")
     @Schema(description = "ФИО пользователя", example = "Tsoy Vadim Batkovich")
     public String fioUser;
 
-    public static UserDAO of(String username, String password,
-                             String role, String fioUser) {
-        var usr = new UserDAO();
-        usr.setUsername(username);
-        usr.setPassword(password);
-        usr.setRole(role);
-        usr.setFioUser(fioUser);
-        return usr;
+    public static UserDAO of(String username, String password, String roleName, String fioUser) {
+        var userDAO = new UserDAO();
+        userDAO.setUsername(username);
+        userDAO.setPassword(password);
+        userDAO.setRole(RoleDAO.of(roleName));
+        userDAO.setFioUser(fioUser);
+        return userDAO;
     }
 }

@@ -15,17 +15,18 @@ public class UserDAO {
     public int id;
     public String username;
     public String password;
-    public String role;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    public RoleDAO role;
     @Column(name = "fio_user")
     public String fioUser;
 
-    public static UserDAO of(String username, String password,
-                             String role, String fioUser) {
-        var usr = new UserDAO();
-        usr.setUsername(username);
-        usr.setPassword(password);
-        usr.setRole(role);
-        usr.setFioUser(fioUser);
-        return usr;
+    public static UserDAO of(String username, String password, RoleDAO role, String fioUser) {
+        var userDAO = new UserDAO();
+        userDAO.setUsername(username);
+        userDAO.setPassword(password);
+        userDAO.setRole(role);
+        userDAO.setFioUser(fioUser);
+        return userDAO;
     }
 }

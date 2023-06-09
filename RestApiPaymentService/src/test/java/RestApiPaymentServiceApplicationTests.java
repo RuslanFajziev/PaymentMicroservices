@@ -51,8 +51,8 @@ class RestApiPaymentServiceApplicationTests {
     void checkAuthorizationUserFull() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + jwtUserFull);
-        ResponseEntity<UserDAO> response = restTemplate.exchange(getURI("user"),
-                HttpMethod.GET.GET, new HttpEntity<>(headers), UserDAO.class);
+        ResponseEntity<UserJWT> response = restTemplate.exchange(getURI("user"),
+                HttpMethod.GET.GET, new HttpEntity<>(headers), UserJWT.class);
         assertTrue(response.getBody().getUsername().equals(userFull.username));
     }
 
@@ -60,8 +60,8 @@ class RestApiPaymentServiceApplicationTests {
     void checkAuthorizationUserRead() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + jwtUserRead);
-        ResponseEntity<UserDAO> response = restTemplate.exchange(getURI("user"),
-                HttpMethod.GET.GET, new HttpEntity<>(headers), UserDAO.class);
+        ResponseEntity<UserJWT> response = restTemplate.exchange(getURI("user"),
+                HttpMethod.GET.GET, new HttpEntity<>(headers), UserJWT.class);
         assertTrue(response.getBody().getUsername().equals(userRead.username));
     }
 
@@ -69,15 +69,16 @@ class RestApiPaymentServiceApplicationTests {
     void checkAuthorizationUserBad() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + jwtUserBad);
-        ResponseEntity<UserDAO> response = restTemplate.exchange(getURI("user"),
-                HttpMethod.GET.GET, new HttpEntity<>(headers), UserDAO.class);
+        ResponseEntity<UserJWT> response = restTemplate.exchange(getURI("user"),
+                HttpMethod.GET.GET, new HttpEntity<>(headers), UserJWT.class);
         assertTrue(response.getBody().getUsername().equals(userBad.username));
+        System.out.println(response);
     }
 
     @Test
     void checkAuthorizationWithoutJwt() {
-        ResponseEntity<UserDAO> response = restTemplate.exchange(getURI("user"),
-                HttpMethod.GET.GET, new HttpEntity<>(new HttpHeaders()), UserDAO.class);
+        ResponseEntity<UserJWT> response = restTemplate.exchange(getURI("user"),
+                HttpMethod.GET.GET, new HttpEntity<>(new HttpHeaders()), UserJWT.class);
         assertEquals(response.getStatusCode(), HttpStatus.FORBIDDEN);
     }
 

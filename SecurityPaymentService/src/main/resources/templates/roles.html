@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>User list</title>
+    <title>Role list</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -22,36 +22,34 @@
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
-            <div class="alert alert-info" role="alert">
-                User list
+            <div th:text="'Role list - ' + ${errorMessage}" th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            </div>
+            <div th:if="!${errorMessage}" class="alert alert-info">
+                Role list
             </div>
             <div class="card-body">
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">User name</th>
                         <th scope="col">Role name</th>
-                        <th scope="col">FIO</th>
                         <th scope="col">
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <a class="btn btn-primary" th:href="@{/roles}" role="button">Roles</a>
-                                <a class="btn btn-success" active th:href="@{/user_add}" role="button">Add</a>
+                                <a class="btn btn-primary" active th:href="@{/}" role="button">Users</a>
+                                <a class="btn btn-success" active th:href="@{/role_add}" role="button">Add</a>
                                 <a class="btn btn-secondary" href="/logout" role="button">logout</a>
                             </div>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="usr: ${userServiceList}">
-                        <td th:text="${usr.id}"/>
-                        <td th:text="${usr.username}"/>
-                        <td th:text="${usr.role.rolename}"/>
-                        <td th:text="${usr.fioUser}"/>
+                    <tr th:each="role: ${roleServiceList}">
+                        <td th:text="${role.id}"/>
+                        <td th:text="${role.rolename}"/>
                         <td>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <a class="btn btn-secondary active" th:href="@{/user_edit(id=${usr.id})}" role="button">Edit</a>
-                                <a class="btn btn-secondary" th:href="@{/user_del(id=${usr.id})}"
+                                <a class="btn btn-secondary active" th:href="@{/role_edit(id=${role.id})}" role="button">Edit</a>
+                                <a class="btn btn-secondary" th:href="@{/role_del(id=${role.id})}"
                                    role="button">Delete</a>
                             </div>
                         </td>

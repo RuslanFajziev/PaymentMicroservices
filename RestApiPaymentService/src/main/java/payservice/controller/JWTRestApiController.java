@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import payservice.model.UserDAO;
 import payservice.service.JWTRestApiService;
+import payservice.service.RoleRestApiService;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -25,7 +26,8 @@ import java.util.Map;
 @RequestMapping("/api/v1/")
 @Tag(name = "Система управления пользователями", description = "Принимает пользователей для импорта в БД, выводит информацию login/role из authentication")
 public class JWTRestApiController {
-    private final JWTRestApiService service;
+    private final JWTRestApiService serviceUser;
+    private final RoleRestApiService serviceRole;
     private final Gson gson;
 
     @PostMapping("adduser")
@@ -33,7 +35,7 @@ public class JWTRestApiController {
     @SecurityRequirement(name = "JWT")
     @Operation(summary = "Загрузка пользователей", description = "Позволяет загрузить пользователей в БД")
     public ResponseEntity<String> getJwt(@Valid @RequestBody UserDAO userDAO) {
-        String rsl = service.addUser(userDAO);
+        String rsl = serviceUser.addUser(userDAO, userDAO.getRole());
 
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)

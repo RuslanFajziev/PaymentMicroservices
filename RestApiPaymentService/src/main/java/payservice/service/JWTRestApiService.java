@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import payservice.model.RoleDAO;
 import payservice.model.UserDAO;
 import payservice.repository.JWTRestApiRepos;
+import payservice.repository.RolesRestApiRepos;
 
 import java.util.Optional;
 
@@ -14,9 +16,12 @@ import java.util.Optional;
 @Service
 public class JWTRestApiService {
     private final JWTRestApiRepos repos;
+    private final RolesRestApiRepos reposRole;
+
+    private final RoleRestApiService serviceRole;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public String addUser(UserDAO userDAO) {
+    public String addUser(UserDAO userDAO, RoleDAO roleDAO) {
         if (userDAO.getPassword().length() < 8) {
             throw new IllegalArgumentException("Password is too short < 8");
         }
@@ -24,8 +29,15 @@ public class JWTRestApiService {
         var userDAOOptional = findByLogin(userDAO.getUsername());
         String rsl;
 
+        serviceRole.addRole(roleDAO);
+        var optionalRoleDAO = reposRole.findByRolename(roleDAO.getRolename());
+        if (optionalRoleDAO.isEmpty()) {
+            return "role search error";
+        }
+
         if (userDAOOptional.isEmpty()) {
             userDAO.setPassword(bCryptPasswordEncoder.encode(userDAO.password));
+            userDAO.setRole(optionalRoleDAO.get());
             repos.save(userDAO);
             rsl = "user successfully added";
         } else {
